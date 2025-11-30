@@ -1,0 +1,10 @@
+# 可选依赖 - 用于高级功能
+# 安装这些依赖可以启用LSTM预测、SHAP可解释性等高级功能
+# 安装方法: pip install -r requirements-optional.txt
+
+tensorflow==2.15.0      # LSTM深度学习模型
+keras==2.15.0           # 深度学习框架
+shap==0.43.0            # 模型可解释性分析
+sqlalchemy==2.0.23      # 数据库ORM（用于高级数据管理）
+
+

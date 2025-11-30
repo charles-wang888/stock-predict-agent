@@ -1,0 +1,145 @@
+{
+  "rules": [
+    {
+      "rule_id": "RC001",
+      "type": "风控规则",
+      "name": "单只股票持仓限制",
+      "description": "单只股票持仓不超过总资产的30%",
+      "condition": {
+        "field": "position_ratio",
+        "operator": ">",
+        "value": 0.3
+      },
+      "action": {
+        "type": "禁止",
+        "message": "单只股票持仓已达到上限，禁止继续买入"
+      },
+      "priority": 1
+    },
+    {
+      "rule_id": "RC002",
+      "type": "风控规则",
+      "name": "止损规则",
+      "description": "亏损超过5%自动止损",
+      "condition": {
+        "field": "loss_ratio",
+        "operator": "<",
+        "value": -0.05
+      },
+      "action": {
+        "type": "建议卖出",
+        "message": "亏损超过5%，建议止损卖出"
+      },
+      "priority": 1
+    },
+    {
+      "rule_id": "RC003",
+      "type": "风控规则",
+      "name": "账户风险控制",
+      "description": "账户总亏损不超过总资产的10%",
+      "condition": {
+        "field": "total_loss_ratio",
+        "operator": "<",
+        "value": -0.1
+      },
+      "action": {
+        "type": "禁止",
+        "message": "账户总亏损已超过10%，暂停交易"
+      },
+      "priority": 1
+    },
+    {
+      "rule_id": "CO001",
+      "type": "成本优化规则",
+      "name": "大额交易成本优化",
+      "description": "单笔交易金额超过10万元时，优化交易成本",
+      "condition": {
+        "field": "trade_amount",
+        "operator": ">",
+        "value": 100000
+      },
+      "action": {
+        "type": "优化",
+        "message": "交易金额较大，建议分批执行以降低成本"
+      },
+      "priority": 2
+    },
+    {
+      "rule_id": "RC004",
+      "type": "风控规则",
+      "name": "资金不足限制",
+      "description": "账户可用资金不足1000元时，停止新开仓位",
+      "condition": {
+        "field": "available_cash",
+        "operator": "<",
+        "value": 1000
+      },
+      "action": {
+        "type": "禁止",
+        "message": "可用资金不足，无法开新仓"
+      },
+      "priority": 1
+    },
+    {
+      "rule_id": "RC005",
+      "type": "风控规则",
+      "name": "止盈规则",
+      "description": "盈利达到10%时部分止盈",
+      "condition": "loss_ratio > 0.1 AND position_ratio > 0.1",
+      "action": {
+        "type": "建议卖出",
+        "message": "盈利超过10%，建议部分止盈锁定利润"
+      },
+      "priority": 2
+    },
+    {
+      "rule_id": "RC006",
+      "type": "风控规则",
+      "name": "单日限额规则",
+      "description": "单日交易金额不超过账户总额的20%",
+      "condition": "trade_amount > (total_assets * 0.2)",
+      "action": {
+        "type": "禁止",
+        "message": "单日交易金额超过限额，请减少交易量"
+      },
+      "priority": 1
+    },
+    {
+      "rule_id": "TW001",
+      "type": "时间窗口规则",
+      "name": "交易时间限制",
+      "description": "只在交易时间内允许交易",
+      "condition": "current_hour >= 9 AND current_hour <= 15",
+      "action": {
+        "type": "允许",
+        "message": "当前在交易时间内"
+      },
+      "priority": 3
+    },
+    {
+      "rule_id": "MS001",
+      "type": "市场状态规则",
+      "name": "高风险市场暂停",
+      "description": "当预测风险等级为高且置信度低于60%时，建议观望",
+      "condition": "risk_level == '高' AND confidence < 0.6",
+      "action": {
+        "type": "警告",
+        "message": "市场风险较高且预测置信度较低，建议谨慎操作或观望"
+      },
+      "priority": 2
+    },
+    {
+      "rule_id": "CO002",
+      "type": "成本优化规则",
+      "description": "当预测收益率高且置信度高时，可以适当增加交易金额",
+      "name": "高置信度优化",
+      "condition": "predicted_return > 0.05 AND confidence > 0.8",
+      "action": {
+        "type": "优化",
+        "message": "预测收益率和置信度均较高，可以考虑适当增加投资"
+      },
+      "priority": 3
+    }
+  ]
+}
+

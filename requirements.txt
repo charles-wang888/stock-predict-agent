@@ -1,0 +1,28 @@
+flask==3.0.0
+pandas==2.1.4
+numpy<2.0.0  # 必须使用NumPy 1.x，因为numba、shap等依赖还不支持NumPy 2.0
+matplotlib==3.8.2
+plotly==5.18.0
+akshare==1.12.0
+scikit-learn==1.3.2
+jieba==0.42.1
+flask-cors==4.0.0
+requests==2.31.0
+TA-Lib==0.4.28  # 技术分析库，用于MACD、RSI等技术指标计算
+# 注意：Ollama需要单独安装和启动，本系统通过HTTP API调用
+
+# 可选依赖（用于高级功能）
+# tensorflow==2.15.0  # LSTM模型（可选，如果未安装将使用简单模型）
+# keras==2.15.0       # 深度学习框架（可选）
+shap<0.44  # 模型可解释性（可选，必须<0.44以兼容NumPy 1.x）
+# sqlalchemy==2.0.23  # 数据库ORM（可选）
+
+# 多模型预测（可选，推荐安装）
+# 安装方法：pip install xgboost
+# xgboost>=2.0.0      # XGBoost梯度提升算法（可选）
+# lightgbm>=4.0.0     # LightGBM梯度提升算法（可选）
+
+# 注意：TA-Lib需要先安装C库，Windows用户请访问：
+# https://www.lfd.uci.edu/~gohlke/pythonlibs/#ta-lib
+# 或使用 conda install -c conda-forge ta-lib
+
